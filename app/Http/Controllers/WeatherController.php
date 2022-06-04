@@ -22,7 +22,7 @@ class WeatherController extends Controller
             Cache::put("weather", array("name" => $response["name"], "sys" => $response["sys"], "wind" => $response["wind"], "weather" => $response["weather"], "main" => $response["main"]));
             $data = Cache::get("weather");
         }
-        return Inertia::render('Weather', [
+        return Inertia::render('weather', [
             'data' => $data
         ]);
     }
