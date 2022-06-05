@@ -70,7 +70,7 @@ onMounted(() => {
   console.log(Object.keys(props.data).length)
   console.log(props.cart)
 })
-let stripe = Stripe("pk_test_51L7OBJCnSZgIhqBcuZ1tMG06njq9ARr5zXzizD6jhEI7WCvf6Ee16epekqJP3ExFwIX1y5BBPF5fIeguIafiqSFj004YXeDR9Y")
+let stripe = Stripe("pk_test_51L7QXXGWMPniq1IeiIfcHaX7k74d0r5QON8Ixa30T0uC6ScIVhDm6sLSFamwT26MFab1QjamQfnMhyiocZ5xSoLN00hklgrZDy")
 function sum(data) {
   var sum = 0;
   for (let el in data) {
