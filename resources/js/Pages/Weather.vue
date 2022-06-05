@@ -1,17 +1,16 @@
 <template>
-
-  <Head title="Weather" />
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-    <div class="bg-white overflow-hidden shadow-sm rounded-lg">
-      <div class="p-6 bg-white border-b border-gray-200">
-        <div class="text-2xl">Koht: {{ data.name }} </div>
-        <div class="text-2xl">Ilm: {{ data.weather[0].main }}</div>
-        <div class="text-2xl">Temperatuur: {{ data.main.temp }}</div>
-        <div class="text-2xl">Tundub nagu: {{data.main.feels_like}}</div>
-        <div class="text-2xl">Tuule kiirus: {{data.wind.speed}}</div>
-      </div>
+  <div class="bg-blue-300 w-80 h-72 m-8 static rounded-lg mx-auto">
+    <div
+      class="bg-gray-100 w-80 h-72 -m-2 hover:m-0 absolute rounded-lg shadow-lg hover:shadow-2xl transition-all duration-150 ease-out hover:ease-in ">
+      <h1 class="m-4 text-2xl font-bold">{{ data.name }}</h1>
+      <h1 class="m-4 text-xl font-bold">Weather: {{ data.weather[0].main }}</h1>
+      <hr class="m-4 rounded-2xl border-t-2">
+      <p class="m-4 text-md font-bold">🌡️Temperature: {{ data.main.temp }}</p>
+      <p class="m-4 text-md font-bold">❗Feels like: {{data.main.feels_like}}</p>
+      <p class="m-4 text-md font-bold">💨Wind: {{data.wind.speed}}</p>
     </div>
   </div>
+
 </template>
 <script>
 export default {
