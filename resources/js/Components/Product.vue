@@ -1,4 +1,3 @@
-
 <template>
     <div class="rounded overflow-hidden shadow-lg">
         <img class="w-full" :src="'https://epood.ta19heinsoo.itmajakas.ee/' + image" alt="">
@@ -28,11 +27,8 @@
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import axios from 'axios'
 import { inject, ref } from "vue";
-
 const route = inject("route");
-
 defineProps(["image", "title", "description", "category", "price", "data"])
-
 let qty = ref(1)
 console.log(qty.value)
 function addToCart(data, qty) {
@@ -50,5 +46,4 @@ function addToCart(data, qty) {
         onSuccess: () => qty = 1
     })
 }
-
 </script>

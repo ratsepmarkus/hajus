@@ -12,7 +12,7 @@
                 <div class="w-3/4 bg-white px-10 py-10">
                   <div class="flex justify-between border-b pb-8">
                     <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-                    <h2 class="font-semibold text-2xl">{{ Object.keys(props.data).length }} Items</h2>
+                    <h2 class="font-semibold text-2xl">{{Object.keys(props.data).length}} Items</h2>
                   </div>
                   <div class="flex mt-10 mb-5">
                     <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details
@@ -40,8 +40,8 @@
                 <div id="summary" class="w-1/4 px-8 py-10">
                   <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
                   <div class="flex justify-between mt-10 mb-5">
-                    <span class="font-semibold text-sm uppercase">Items {{ Object.keys(props.data).length }}</span>
-                    <span class="font-semibold text-sm">{{ sum(data) }}€</span>
+                    <span class="font-semibold text-sm uppercase">Items {{Object.keys(props.data).length}}</span>
+                    <span class="font-semibold text-sm">{{sum(data)}}€</span>
                   </div>
                   <div class="border-t mt-8">
                     <!-- <div class="flex font-semibold justify-between py-6 text-sm uppercase">
@@ -66,16 +66,11 @@ import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { onMounted } from 'vue'
 import { defineComponent } from '@vue/runtime-core';
 const props = defineProps({ data: String, cart: String });
-
-
-
 onMounted(() => {
   console.log(Object.keys(props.data).length)
   console.log(props.cart)
 })
-
-let stripe = Stripe("pk_test_51L2ZikAEuFPYuI17gqbgna5QVoXRozNCJ5JC5jtq5bSMuo6qyeoqtefwWR9jYBhmS4PjQh2EgL4eRsdS6lttoGyB00PjG90GBL")
-
+let stripe = Stripe("pk_test_51L7OBJCnSZgIhqBcuZ1tMG06njq9ARr5zXzizD6jhEI7WCvf6Ee16epekqJP3ExFwIX1y5BBPF5fIeguIafiqSFj004YXeDR9Y")
 function sum(data) {
   var sum = 0;
   for (let el in data) {
@@ -86,7 +81,6 @@ function sum(data) {
   }
   return sum;
 }
-
 function redirect() {
   const items = []
   props.cart.forEach(element => {
@@ -100,5 +94,4 @@ function redirect() {
     mode: "payment"
   })
 }
-
 </script>
