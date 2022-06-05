@@ -30,13 +30,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'weather' => [
+        'key' => env('WEATHER_API_KEY')
+    ],
     'strip' => [
         'pk' => env("STRIPE_PK"),
         'sk' => env("STRIPE_SK")
     ],
-
-    'weather' => [
-        'key' => env("WEATHER_API_KEY")
-    ]
-
 ];
