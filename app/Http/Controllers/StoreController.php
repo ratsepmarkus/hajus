@@ -15,45 +15,48 @@ class StoreController extends Controller
     // $data = Http::get("https://epood.ta19heinsoo.itmajakas.ee/api/hajus");
     // return $data;
     // $realData = array();
+
     return Inertia::render('Store');
   }
+
   public function cartList()
   {
     $data = session()->get('cart');
     $sendData = array();
 
+    // return config('services.strip.sk');
+    if ($data) {
 
-    if($data){
+      $stripe = new \Stripe\StripeClient(config('services.strip.sk'));
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SK'));
+      foreach ($data as $value) {
 
-        foreach ($data as $value) {
+        $product = $stripe->products->create([
+          'name' => $value["title"],
+          'description' => $value["description"],
+          'images' => ["https://epood.ta19heinsoo.itmajakas.ee/" . $value["image"]],
+          'default_price_data' => [
+            'currency' => 'eur',
+            'unit_amount' => (int) $value["price"] * 100
+          ],
+          'metadata' => ['amount' => $value['qty']]
+        ]);
 
-            $product = $stripe->products->create([
-                'name' => $value["title"],
-                'description' => $value["description"],
-                'images' => ["https://epood.ta19heinsoo.itmajakas.ee/".$value["image"]],
-                'default_price_data' => [
-                    'currency' => 'eur',
-                    'unit_amount' => (int) $value["price"] * 100
-                ],
-                'metadata' => ['amount' => $value['qty']]
-            ]);
-
-            array_push($sendData, $product);
-        }
+        array_push($sendData, $product);
+      }
     }
 
     return Inertia::render('Cart', [
-        'data' => $data,
-        'cart' => $sendData
+      'data' => $data,
+      'cart' => $sendData
     ]);
-
   }
+
   public function cartCount()
   {
     $data = session()->get('cart');
   }
+
   public function cartAdd(Request $request)
   {
     $product = $request->all();
@@ -72,12 +75,14 @@ class StoreController extends Controller
     }
     return redirect()->back();
   }
+
   public function cartUpdate(Request $request)
   {
     $product = $request->all();
     $validator = Validator::make($request->all(), [
       'qty' => 'required|numeric|gt:0'
     ])->passes();
+
     if (session()->has('cart.' . $product['id']) && $validator) {
       $cart_product = session('cart.' . $product['id'], $product);
       $cart_product['qty'] += $request['qty'];
@@ -85,16 +90,17 @@ class StoreController extends Controller
     }
     return redirect()->back();
   }
+
   public function destroy($id)
   {
     session()->forget('cart.' . $id);
     return redirect()->back();
   }
 
-  function success(){
+  function success()
+  {
     session()->flush();
 
     return redirect('/store');
-}
-
+  }
 }
